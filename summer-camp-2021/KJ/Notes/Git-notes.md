@@ -29,6 +29,9 @@ Initialized empty Git repository in /.../...
 $ git add 文件名
 //可多次使用该命令，将文件提交到缓冲区
 
+$ git add .
+//添加当前目录下所有改动
+
 $ git commit -am "提交说明"
 //""增强可读性
 ```
