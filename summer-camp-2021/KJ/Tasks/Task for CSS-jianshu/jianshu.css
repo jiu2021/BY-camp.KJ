@@ -1,3 +1,11 @@
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,74 +13,102 @@
 
 a {
     text-decoration: none;
-    display: flex;
+    color: black;
 }
 
 ul li {
     list-style: none;
 }
 
-.father {
+h3 {
+    color: black;
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(1) a:hover {
+    text-decoration: underline;
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(1) a:visited {
+    color: rgb(195, 194, 194);
+}
+
+.text1 {
+    margin: 5px 2px;
+    font-size: 12px !important;
+    color: rgb(209, 209, 209);
+}
+
+.text2 {
+    font-size: 13px;
+    line-hight: 25px;
+    color: rgb(195, 194, 194);
+}
+
+.nav {
     display: flex;
     flex-flow: row nowrap;
     height: 56px;
     width: 100%;
     margin: 0 auto;
-    background-color: rgb(251, 250, 250);
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
-    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.nav>div {
+    display: flex;
+    flex-flow: column nowrap;
     justify-content: space-between;
-}
-
-.father>div {
-    display: flex;
-    height: 100%;
-    width: 50px;
-    background-color: rgb(247, 248, 247);
-    line-height: 56px;
-}
-
-.father>a {
-    display: flex;
     height: 100%;
     width: 100px;
+    background-color: rgb(255, 255, 255);
     line-height: 56px;
+    text-align: center;
 }
 
-.father>div:nth-child(1) {
-    display: flex;
-    height: 100%;
+.nav>div:nth-child(1) {
     width: 200px;
-    padding-left: 50px;
+    margin-left: 80px;
+    margin-right: -25px;
 }
 
-.father>div:nth-child(2) {
-    display: flex;
-    height: 100%;
-    width: 100px;
-    padding-left: 25px;
-    background: azure url(images/1.PNG) no-repeat center left;
+.nav>div:nth-child(3) {
+    background: rgb(255, 255, 255) url(images/3.PNG) no-repeat center left;
 }
 
-#search {
-    display: flex;
-    height: 60%;
-    width: 150px;
+.nav>div:nth-child(4) {
+    background: rgb(255, 255, 255) url(images/2.PNG) no-repeat center left;
+}
+
+.nav .all-link a {
+    flex: 1;
+}
+
+.nav>div:nth-child(5) {
+    display: inline-block;
+    width: 200px;
     line-height: 56px;
+    border: darkgrey solid;
+    border-radius: 10px;
 }
 
-.father>a:nth-child(1) div {
-    display: flex;
-    background: azure url(images/3.PNG) no-repeat center left;
+.nav .right {
+    width: 100px;
+    align-self: flex-end;
 }
 
-.father>a:nth-child(2) div {
-    display: flex;
-    background: azure url(images/2.PNG) no-repeat center left;
+.nav>div:nth-child(8) a {
+    color: rgb(255, 115, 0);
+    border-radius: 20px;
+    border: 1px rgb(255, 115, 0) solid;
+    background-color: rgb(197, 195, 195);
 }
 
-.onlytext {
-    color: #333;
+.nav>div:nth-child(9) a {
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    border: 1px rgb(255, 115, 0) solid;
+    background-color: rgb(255, 115, 0);
 }
 
 .col {
@@ -80,33 +116,60 @@ ul li {
     flex-flow: row nowrap;
     width: 60%;
     height: 9999px;
-    margin: 0 auto;
-    background-color: rgb(230, 16, 16);
+    margin: 20px auto;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
     align-items: flex-start;
 }
 
 .col .leftcol {
-    display: flex;
-    flex-flow: column wrap;
     flex: 2;
-    background-color: rgb(15, 52, 218);
+    background-color: rgb(255, 255, 255);
 }
 
 .col .rightcol {
     display: flex;
     flex-flow: column wrap;
     flex: 1;
-    background-color: rgb(235, 243, 243);
+    background-color: rgb(255, 255, 255);
 }
 
 .col .leftcol>div {
     display: flex;
     width: 100%;
-    height: 120px;
-    flex: 1;
-    background-color: rgb(43, 233, 106);
-    margin-top: 3px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 15px;
+    border-bottom: 1px solid rgb(199, 198, 198);
+}
+
+.col .leftcol>div div:nth-child(1) {
+    flex: 5;
+    background-color: rgb(255, 255, 255);
+}
+
+.col .leftcol>div .img {
+    flex: 2;
+    margin: 20px 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(1) {
+    margin: 5px 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(2) {
+    margin: 5px 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(3) {
+    margin: 10px 0 20px 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.col .leftcol>div div:nth-child(1) div:nth-child(3) span {
+    margin: 5px 10px 5px 0;
 }
 
 #label {
@@ -154,7 +217,7 @@ ul li {
     width: 90%;
     margin-top: 5px;
     background-color: rgb(255, 255, 255);
-    border: rgb(126, 124, 124) solid 1px;
+    border: rgb(197, 195, 195) solid 1px;
     border-radius: 5px;
 }
 
@@ -166,18 +229,20 @@ ul li {
 
 #mobile>span:nth-child(2) {
     display: flex;
+    flex-flow: column wrap;
     flex: 2;
-    margin: 5px 10px;
+    margin: 15px 10px;
 }
 
 .rightcol .ads {
     display: flex;
     align-self: flex-end;
     flex-flow: column wrap;
-    height: 200px;
+    height: 250px;
     width: 90%;
     margin-top: 20px;
-    background-color: rgb(119, 177, 43);
+    background: azure url(images/BY-logo.jpg) no-repeat center;
+    background-size: 100% 100%;
 }
 
 ul {
@@ -200,22 +265,78 @@ ul .content div {
     flex-flow: row nowrap;
     justify-content: space-between;
     height: 50px;
-    margin-top: 2px;
+    margin-top: 5px;
 }
 
-ul .content div sapn:nth-child(1) {
+ul .content div span:nth-child(1) {
     display: flex;
+    flex-flow: row nowrap;
     flex: 1;
 }
 
-ul .content div sapn:nth-child(2) {
+ul .content div span:nth-child(2) {
     display: flex;
+    flex-flow: column nowrap;
     flex: 4;
-    background-color: rgb(14, 13, 13);
+    background-color: rgb(255, 255, 255);
 }
 
-ul .content div sapn:nth-child(3) {
-    display: flex;
+ul .content div span:nth-child(3) {
     flex: 1;
     font-size: 12px;
+}
+
+ul .content div span:nth-child(3) a {
+    color: rgb(19, 236, 37);
+}
+
+ul .content div span:nth-child(1)>a {
+    display: flex;
+    flex: 1;
+}
+
+ul .content1 div>span:nth-child(1) {
+    background: azure url(images/4.PNG) no-repeat center left;
+    background-size: 100%;
+}
+
+ul .content2 div>span:nth-child(1) {
+    background: azure url(images/5.PNG) no-repeat center left;
+    background-size: 100%;
+}
+
+ul .content3 div>span:nth-child(1) {
+    background: azure url(images/6.PNG) no-repeat center left;
+    background-size: 100%;
+}
+
+ul .content4 div>span:nth-child(1) {
+    background: azure url(images/7.PNG) no-repeat center left;
+    background-size: 100%;
+}
+
+ul .content5 div>span:nth-child(1) {
+    background: azure url(images/8.PNG) no-repeat center left;
+    background-size: 100%;
+}
+
+ul .more div {
+    background-color: rgb(229, 237, 250);
+    border-radius: 5px;
+    height: 35px;
+    margin-top: 15px;
+    line-height: 35px;
+    text-align: center;
+}
+
+ul .content div span:nth-child(2) span:nth-child(1) {
+    display: flex;
+    margin: 5px 5px;
+    font-size: 14px;
+    flex: 1;
+}
+
+ul .content div span:nth-child(2) span:nth-child(2) {
+    display: flex;
+    flex: 1;
 }
