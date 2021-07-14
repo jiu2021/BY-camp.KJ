@@ -68,7 +68,7 @@ h3 {
 .nav>div:nth-child(1) {
     flex: 1;
     margin-left: 60px;
-    margin-right: -25px;
+    margin-right: -15px;
 }
 
 .nav .left {
@@ -83,12 +83,12 @@ h3 {
 
 .nav .left div:nth-child(2) {
     background: rgb(255, 255, 255) url(images/3.PNG) no-repeat center left;
-    width: 90px;
+    width: 100px;
 }
 
 .nav .left div:nth-child(3) {
     background: rgb(255, 255, 255) url(images/2.PNG) no-repeat center left;
-    width: 90px;
+    width: 100px;
 }
 
 .nav .all-link a {
@@ -96,11 +96,47 @@ h3 {
 }
 
 .nav .left div:nth-child(4) {
-    display: inline-block;
-    width: 200px;
+    display: flex;
+    justify-content: flex-start;
+    width: 180px;
     line-height: 56px;
-    border: darkgrey solid;
-    border-radius: 10px;
+}
+
+.nav .left div:nth-child(5) {
+    display: flex;
+    width: 100px;
+    background: rgb(255, 255, 255) url(https://cdn2.jianshu.io/assets/web/download_app-93f9722ab463bb07c6f3c66c8549bfaf.png) no-repeat center;
+    line-height: 56px;
+    margin-left: 40px;
+    background-size: 100%;
+}
+
+.nav .left div:nth-child(5) a {
+    margin-left: 50px;
+    color: rgb(255, 229, 123);
+    font-size: 14px;
+}
+
+.nav .left div:nth-child(4) .search {
+    display: flex;
+    margin: 10px 0px;
+    background-color: rgb(238, 238, 238);
+    border: 1px rgb(238, 238, 238);
+    border-radius: 18px;
+}
+
+.search input {
+    margin: 5px 0 5px 10px;
+    background-color: rgb(238, 238, 238);
+    border: 1px rgb(238, 238, 238);
+    width: 160px;
+}
+
+.search a {
+    background: rgb(238, 238, 238) url(images/10.PNG) no-repeat center right;
+    width: 40px !important;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
 }
 
 .nav .right {
@@ -110,30 +146,36 @@ h3 {
 
 .nav .right div {
     width: 50px;
-    margin-right: 30px;
+    margin: 10px 15px;
+    line-height: 36px;
 }
 
 .nav .right div:nth-child(3) {
-    color: rgb(255, 115, 0);
     border-radius: 20px;
     border: 1px rgb(255, 115, 0) solid;
-    background-color: rgb(197, 195, 195);
+    background-color: rgb(255, 255, 255);
     width: 80px;
 }
 
+.nav .right div:nth-child(3) a {
+    color: rgb(255, 115, 0);
+}
+
 .nav .right div:nth-child(4) {
-    color: rgb(255, 255, 255);
     border-radius: 20px;
     border: 1px rgb(255, 115, 0) solid;
     background-color: rgb(255, 115, 0);
     width: 100px;
 }
 
+.nav .right div:nth-child(4) a {
+    color: rgb(255, 255, 255);
+}
+
 .col {
     display: flex;
     flex-flow: row nowrap;
     width: 60%;
-    height: 9999px;
     margin: 0 auto;
     background-color: rgb(255, 255, 255);
     overflow: hidden;
@@ -143,7 +185,7 @@ h3 {
 .col .leftcol {
     flex: 2;
     background-color: rgb(255, 255, 255);
-    margin-top: 56px;
+    margin-top: 66px;
 }
 
 .col .rightcol {
@@ -151,7 +193,7 @@ h3 {
     flex-flow: column wrap;
     flex: 1;
     background-color: rgb(255, 255, 255);
-    margin-top: 56px;
+    margin-top: 66px;
 }
 
 .col .leftcol>div {
@@ -173,22 +215,21 @@ h3 {
     background-color: rgb(255, 255, 255);
 }
 
-.col .leftcol>div div:nth-child(1) div:nth-child(1) {
+.col .leftcol>div>div:nth-child(1)>div:nth-child(1) {
     margin: 5px 0;
     background-color: rgb(255, 255, 255);
 }
 
-.col .leftcol>div div:nth-child(1) div:nth-child(2) {
+.col .leftcol>div>div:nth-child(1)>div:nth-child(2) {
     margin: 5px 0;
     background-color: rgb(255, 255, 255);
 }
 
-.col .leftcol>div div:nth-child(1) div:nth-child(3) {
+.col .leftcol>div>div:nth-child(1)>div:nth-child(3) {
     margin: 10px 0 20px 0;
-    background-color: rgb(255, 255, 255);
 }
 
-.col .leftcol>div div:nth-child(1) div:nth-child(3) span {
+.col .leftcol>div>div:nth-child(1)>div:nth-child(3) span {
     margin: 5px 10px 5px 0;
 }
 
@@ -233,7 +274,7 @@ h3 {
     display: flex;
     align-self: flex-end;
     flex-flow: row wrap;
-    height: 80px;
+    height: 85px;
     width: 90%;
     margin-top: 5px;
     background-color: rgb(255, 255, 255);
@@ -359,4 +400,57 @@ ul .content div span:nth-child(2) span:nth-child(1) {
 ul .content div span:nth-child(2) span:nth-child(2) {
     display: flex;
     flex: 1;
+}
+
+
+/*轮播图样式*/
+
+.leftcol #slideshow {
+    display: inline-block;
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.leftcol #slideshow .prev,
+.leftcol #slideshow .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+}
+
+.leftcol #slideshow .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.leftcol #slideshow .prev:hover,
+.leftcol #slideshow .next:hover {
+    background-color: black;
+}
+
+.leftcol #slideshow .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+.leftcol #slideshow .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
 }

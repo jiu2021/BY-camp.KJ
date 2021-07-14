@@ -1055,6 +1055,13 @@ logHiToFriends: function () {
 
 目前为止，你可能认为JavaScript的对象仅是键值的映射，通过JavaScript对象字面量可以得出这个观点，看起来很像其他语言中的地图/字典（map/dictionary）。然而，JavaScript对象也支持真正意义上的面向对象特性：继承（inheritance）。本节不会完全讲解JavaScript中继承的工作原理，但会给你以此为开始的简单模式。如果你想得到更多知识，请查阅这篇文章“[JavaScript inheritance by example](http://www.2ality.com/2012/01/js-inheritance-by-example.html)”。
 
+构造函数可以是函数表达式，也可以是函数声明，因此以下两种形式都可以：
+
+```
+let Person = function() {}
+function Person() {}
+```
+
 除了作为“真正”的函数和方法，函数还在JavaScript中扮演第三种角色：如果通过new操作符调用，他们会变为构造函数，对象的工厂。构造函数是对其他语言中的类的粗略模拟。约定俗成，构造函数的第一个字母大写。例如：
 
 ```
@@ -1276,3 +1283,473 @@ replace的第一个参数必须是正则表达式，并且开启全局搜索（/
 -1
 ```
 
+### 17、原型和原型链
+
+```
+function Person() {
+this.name = 'Kevin';
+}
+var person = new Person();
+person.name = 'Kevin';
+console.log(person.name) // Kevin
+```
+
+Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。
+
+**prototype**
+
+每个函数都有一个 prototype 属性
+ 每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。
+
+**proto**
+
+每一个JavaScript对象(除了 null )都具有的一个属性，叫**proto**，这个属性会指向该对象的原型。
+
+```
+var person = new Person();
+console.log(person.__proto__ === Person.prototype); // true
+```
+
+**constructor**
+
+每个原型都有一个 constructor 属性指向关联的构造函数 实例原型指向构造函数
+
+```
+console.log(Person === Person.prototype.constructor); // true
+// 顺便学习一个ES5的方法,可以获得对象的原型
+console.log(Object.getPrototypeOf(person) === Person.prototype) // true
+```
+
+![](https://upload-images.jianshu.io/upload_images/1490251-0cac772635e8a128.png?imageMogr2/auto-orient/strip|imageView2/2/format/webp)
+
+```
+Person.prototype.name = 'Kevin';
+
+var person = new Person();
+
+person.name = 'Daisy';
+console.log(person.name) // Daisy
+
+delete person.name;
+console.log(person.name) // Kevin
+```
+
+在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。
+
+但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.**proto** ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。
+
+![](https://upload-images.jianshu.io/upload_images/1490251-3089c135df71c956.png?imageMogr2/auto-orient/strip|imageView2/2/format/webp)
+
+JavaScript 默认并不会**复制**对象的属性，相反，JavaScript 只是在两个对象之间创建一个**关联**，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，**委托**的说法反而更准确些。
+
+### 18、HTML DOM
+
+当网页被加载时，浏览器会创建页面的文档对象模型（Document Object Model）。
+
+**HTML DOM** 模型被构造为**对象**的树：
+
+**HTML DOM 树**
+
+![DOM HTML tree](https://www.runoob.com/images/pic_htmltree.gif)
+
+通过可编程的对象模型，JavaScript 获得了足够的能力来创建动态的 HTML。
+
+#### 1、DOM HTML
+
+**改变 HTML 输出流**
+
+JavaScript 能够创建动态的 HTML 内容：
+
+在 JavaScript 中，document.write() 可用于直接向 HTML 输出流写内容。
+
+**改变 HTML 内容**
+
+修改 HTML 内容的最简单的方法是使用 innerHTML 属性。
+
+如需改变 HTML 元素的内容，请使用这个语法：
+
+document.getElementById(*id*).innerHTML=*新的 HTML*
+
+**改变 HTML 属性**
+
+如需改变 HTML 元素的属性，请使用这个语法：
+
+document.getElementById(*id*).*attribute=新属性值*
+
+#### 2、DOM CSS
+
+**改变 HTML 样式**
+
+如需改变 HTML 元素的样式，请使用这个语法：
+
+document.getElementById(*id*).style.*property*=*新样式*
+
+#### 3、DOM 事件
+
+**对事件做出反应**
+
+我们可以在事件发生时执行 JavaScript，比如当用户在 HTML 元素上点击时。
+
+如需在用户点击某个元素时执行代码，请向一个 HTML 事件属性添加 JavaScript 代码：
+
+onclick=*JavaScript*
+
+HTML 事件的例子：
+
+- 当用户点击鼠标时
+- 当网页已加载时
+- 当图像已加载时
+- 当鼠标移动到元素上时
+- 当输入字段被改变时
+- 当提交 HTML 表单时
+- 当用户触发按键时
+
+**HTML 事件属性**
+
+如需向 HTML 元素分配 事件，您可以使用事件属性。
+
+实例：
+
+向 button 元素分配 onclick 事件：
+
+<button **onclick**="**displayDate()**">点这里</button>
+
+**使用 HTML DOM 来分配事件**
+
+HTML DOM 允许您使用 JavaScript 来向 HTML 元素分配事件：
+
+实例：
+
+向 button 元素分配 onclick 事件：
+
+<script>document.getElementById("myBtn").onclick=function(){displayDate()};</script>
+
+**onload 和 onunload 事件**
+
+onload 和 onunload 事件会在用户进入或离开页面时被触发。
+
+onload 事件可用于检测访问者的浏览器类型和浏览器版本，并基于这些信息来加载网页的正确版本。
+
+onload 和 onunload 事件可用于处理 cookie。
+
+**onchange 事件**
+
+onchange 事件常结合对输入字段的验证来使用。
+
+下面是一个如何使用 onchange 的例子。当用户改变输入字段的内容时，会调用 upperCase() 函数。
+
+实例：
+
+<input type="text" id="fname" **onchange**="upperCase()">
+
+**onmouseover 和 onmouseout 事件**
+
+onmouseover 和 onmouseout 事件可用于在用户的鼠标移至 HTML 元素上方或移出元素时触发函数。
+
+**onmousedown、onmouseup 以及 onclick 事件**
+
+onmousedown, onmouseup 以及 onclick 构成了鼠标点击事件的所有部分。首先当点击鼠标按钮时，会触发 onmousedown 事件，当释放鼠标按钮时，会触发 onmouseup 事件，最后，当完成鼠标点击时，会触发 onclick 事件。
+
+#### 4、DOM EventListener
+
+**addEventListener() 方法**
+
+addEventListener() 方法用于向指定元素添加事件句柄。
+
+addEventListener() 方法添加的事件句柄不会覆盖已存在的事件句柄。
+
+你可以向一个元素添加多个事件句柄。
+
+你可以向同个元素添加多个同类型的事件句柄，如：两个 "click" 事件。
+
+你可以向任何 DOM 对象添加事件监听，不仅仅是 HTML 元素。如： window 对象。
+
+addEventListener() 方法可以更简单的控制事件（冒泡与捕获）。
+
+当你使用 addEventListener() 方法时, JavaScript 从 HTML 标记中分离开来，可读性更强， 在没有控制HTML标记时也可以添加事件监听。
+
+你可以使用 removeEventListener() 方法来移除事件的监听。
+
+**语法：**
+
+*element*.addEventListener(*event, function, useCapture*);
+
+第一个参数是事件的类型 (如 "click" 或 "mousedown").
+
+第二个参数是事件触发后调用的函数。
+
+第三个参数是个布尔值用于描述事件是冒泡还是捕获。该参数是可选的。
+
+**向 Window 对象添加事件句柄**
+
+addEventListener() 方法允许你在 HTML DOM 对象添加事件监听， HTML DOM 对象如： HTML 元素, HTML 文档, window 对象。或者其他支持的事件对象如: xmlHttpRequest 对象。
+
+**实例:**
+
+当用户重置窗口大小时添加事件监听：
+
+window.addEventListener("resize", function(){
+  document.getElementById("demo").innerHTML = *sometext*;
+});
+
+**传递参数**
+
+当传递参数值时，使用"匿名函数"调用带参数的函数：
+
+**实例:**
+
+*element*.addEventListener("click", function(){ myFunction(p1, p2); });
+
+**事件冒泡或事件捕获？**
+
+事件传递有两种方式：冒泡与捕获。
+
+事件传递定义了元素事件触发的顺序。 如果你将 <p> 元素插入到 <div> 元素中，用户点击 <p> 元素, 哪个元素的 "click" 事件先被触发呢？
+
+在 *冒泡* 中，内部元素的事件会先被触发，然后再触发外部元素，即： <p> 元素的点击事件先触发，然后会触发 <div> 元素的点击事件。
+
+在 *捕获* 中，外部元素的事件会先被触发，然后才会触发内部元素的事件，即： <div> 元素的点击事件先触发 ，然后再触发 <p> 元素的点击事件。
+
+addEventListener() 方法可以指定 "useCapture" 参数来设置传递类型：
+
+addEventListener(*event*, *function*, ***useCapture\***);
+
+默认值为 false, 即冒泡传递，当值为 true 时, 事件使用捕获传递。
+
+**removeEventListener() 方法**
+
+removeEventListener() 方法移除由 addEventListener() 方法添加的事件句柄.
+
+#### 5、DOM 元素
+
+**创建新的 HTML 元素 (节点) - appendChild()**
+
+要创建新的 HTML 元素 (节点)需要先创建一个元素，然后在已存在的元素中添加它。
+
+**实例解析**
+
+以下代码是用于创建 <p> 元素:
+
+```
+var para = document.createElement("p");
+```
+
+为 <p> 元素创建一个新的文本节点：
+
+```
+var node = document.createTextNode("这是一个新的段落。");
+```
+
+将文本节点添加到 <p> 元素中：
+
+```
+para.appendChild(node);
+```
+
+最后，在一个已存在的元素中添加 p 元素。
+
+查找已存在的元素：
+
+```
+var element = document.getElementById("div1");
+```
+
+添加到已存在的元素中:
+
+```
+element.appendChild(para);
+```
+
+**创建新的 HTML 元素 (节点) - insertBefore()**
+
+以上的实例我们使用了 **appendChild()** 方法，它用于添加新元素到尾部。
+
+如果我们需要将新元素添加到开始位置，可以使用 **insertBefore(待插元素，该元素之前)** 方法。
+
+**移除已存在的元素**
+
+要移除一个元素，你需要知道该元素的父元素。
+
+```
+parent.removeChild(child);
+```
+
+以下代码是已知要查找的子元素，然后查找其父元素，再删除这个子元素（删除节点必须知道父节点）：
+
+```
+var child = document.getElementById("p1");
+child.parentNode.removeChild(child);
+```
+
+**替换 HTML 元素 - replaceChild()**
+
+我们可以使用 replaceChild() 方法来替换 HTML DOM 中的元素。
+
+**注：**同样需要知道父元素。
+
+#### 6、HTMlCollection对象
+
+getElementsByTagName() 方法返回 [HTMLCollection](https://www.runoob.com/jsref/dom-htmlcollection.html) 对象。
+
+HTMLCollection 对象类似包含 HTML 元素的一个数组。
+
+HTMLCollection 对象的 length 属性定义了集合中元素的数量。
+
+获取 <p> 元素的集合：
+
+```
+var myCollection = document.getElementsByTagName("p");
+```
+
+显示集合元素个数：
+
+```
+document.getElementById("demo").innerHTML = myCollection.length;
+```
+
+**集合 length 属性常用于遍历集合中的元素。**
+
+**注意:**
+
+**HTMLCollection 不是一个数组！**
+
+HTMLCollection 看起来可能是一个数组，但其实不是。
+
+你可以像数组一样，使用索引来获取元素。
+
+HTMLCollection 无法使用数组的方法： valueOf(), pop(), push(), 或 join() 。
+
+#### 7、NodeList对象
+
+**NodeList** 对象是一个从文档中获取的节点列表 (集合) 。
+
+NodeList 对象类似 [HTMLCollection](https://www.runoob.com/js/js-htmldom-elements.html) 对象。
+
+一些旧版本浏览器中的方法（如：**getElementsByClassName()**）返回的是 NodeList 对象，而不是 HTMLCollection 对象。
+
+所有浏览器的 **childNodes** 属性返回的是 NodeList 对象。
+
+大部分浏览器的 **querySelectorAll()** 返回 NodeList 对象。
+
+**HTMLCollection 与 NodeList 的区别**
+
+[HTMLCollection](https://www.runoob.com/js/js-htmldom-collections.html) 是 HTML 元素的集合。
+
+NodeList 是一个文档节点的集合。
+
+NodeList 与 HTMLCollection 有很多类似的地方。
+
+NodeList 与 HTMLCollection 都与数组对象有点类似，可以使用索引 (0, 1, 2, 3, 4, ...) 来获取元素。
+
+NodeList 与 HTMLCollection 都有 length 属性。
+
+HTMLCollection 元素可以通过 name，id 或索引来获取。
+
+NodeList 只能通过索引来获取。
+
+只有 NodeList 对象有包含属性节点和文本节点。
+
+### 19、Browser 对象
+
+#### 1、window 对象
+
+**Window 对象表示浏览器中打开的窗口。**
+
+如果文档包含框架（<frame> 或 <iframe> 标签），浏览器会为 HTML 文档创建一个 window 对象，并为每个框架创建一个额外的 window 对象。
+
+**window对象属性**
+
+| 属性                                                         | 描述                               |
+| :----------------------------------------------------------- | :--------------------------------- |
+| [closed](https://www.runoob.com/jsref/prop-win-closed.html)  | 返回窗口是否已被关闭。             |
+| [defaultStatus](https://www.runoob.com/jsref/prop-win-defaultstatus.html) | 设置或返回窗口状态栏中的默认文本。 |
+| [name](https://www.runoob.com/jsref/prop-win-name.html)      | 设置或返回窗口的名称。             |
+| [top](https://www.runoob.com/jsref/prop-win-top.html)        | 返回最顶层的父窗口。               |
+
+**window对象方法**
+
+| [alert()](https://www.runoob.com/jsref/met-win-alert.html) | 显示带有一段消息和一个确认按钮的警告框。 |
+| ---------------------------------------------------------- | ---------------------------------------- |
+
+#### 2、Navigator对象
+
+Navigator 对象包含有关浏览器的信息。
+
+**Navigator对象属性**
+
+**Navigator对象方法**
+
+#### 3、Screen对象
+
+Screen 对象包含有关客户端显示屏幕的信息。
+
+**Screen对象属性**
+
+#### 4、History对象
+
+History 对象包含用户（在浏览器窗口中）访问过的 URL。
+
+History 对象是 window 对象的一部分，可通过 window.history 属性对其进行访问。
+
+**History对象属性**
+
+| [length](https://www.runoob.com/jsref/prop-his-length.html) | 返回历史列表中的网址数 |
+| ----------------------------------------------------------- | ---------------------- |
+
+**History对象方法**
+
+| [back()](https://www.runoob.com/jsref/met-his-back.html)     | 加载 history 列表中的前一个 URL   |
+| ------------------------------------------------------------ | --------------------------------- |
+| [forward()](https://www.runoob.com/jsref/met-his-forward.html) | 加载 history 列表中的下一个 URL   |
+| [go()](https://www.runoob.com/jsref/met-his-go.html)         | 加载 history 列表中的某个具体页面 |
+
+#### 5、Location对象
+
+Location 对象包含有关当前 URL 的信息。
+
+Location 对象是 window 对象的一部分，可通过 window.Location 属性对其进行访问。
+
+**Location对象属性**
+
+| [hash](https://www.runoob.com/jsref/prop-loc-hash.html) | 返回一个URL的锚部分 |
+| ------------------------------------------------------- | ------------------- |
+
+**Location对象方法**
+
+| [assign()](https://www.runoob.com/jsref/met-loc-assign.html) | 载入一个新的文档       |
+| ------------------------------------------------------------ | ---------------------- |
+| [reload()](https://www.runoob.com/jsref/met-loc-reload.html) | 重新载入当前文档       |
+| [replace()](https://www.runoob.com/jsref/met-loc-replace.html) | 用新的文档替换当前文档 |
+
+#### 6、存储对象
+
+Web 存储 API 提供了 sessionStorage （会话存储） 和 localStorage（本地存储）两个存储对象来对网页的数据进行添加、删除、修改、查询操作。
+
+- localStorage 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去除。
+- sessionStorage 用于临时保存同一窗口(或标签页)的数据，在关闭窗口或标签页之后将会删除这些数据。
+
+### 20、DOM 对象
+
+**HTML DOM 节点**
+
+在 HTML DOM (Document Object Model) 中 , 每一个元素都是 **节点**:
+
+- 文档是一个文档节点。
+- 所有的HTML元素都是元素节点。
+- 所有 HTML 属性都是属性节点。
+- 文本插入到 HTML 元素是文本节点。
+- 注释是注释节点。
+
+#### 1、 DOM Document对象
+
+当浏览器载入 HTML 文档, 它就会成为 **Document 对象**。
+
+Document 对象是 HTML 文档的根节点。
+
+Document 对象使我们可以从脚本中对 HTML 页面中的所有元素进行访问。
+
+**提示：**Document 对象是 Window 对象的一部分，可通过 window.document 属性对其进行访问。
+
+**Document 对象属性和方法**
+
+HTML文档中可以使用以下属性和方法:
