@@ -64,7 +64,7 @@
     <div class="col">
         <!--左栏-->
         <div class="leftcol">
-            <div id="slideshow">
+            <div id="slideshow" onmouseover="movetimer()" onmouseout="timerplay()">
                 <div class="mySlides fade">
                     <div class="numbertext">1 / 3</div>
                     <img src="https://i0.hdslb.com/bfs/feed-admin/d29bc6a013bb3b6d62c5ab236ae778ee000ff1ba.jpg@880w_388h_1c_95q" style="width: 100%" />
@@ -85,6 +85,19 @@
 
                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a>
+            </div>
+
+            <div>
+                <span>
+            <span
+              class="dot"
+              onclick="currentSlide(1)"
+              onmousedown="movetimer()"
+              onmouseup="timerplay()"
+            ></span>
+                <span class="dot" onclick="currentSlide(2)" onmousedown="movetimer()" onmouseup="timerplay()"></span>
+                <span class="dot" onclick="currentSlide(3)" onmousedown="movetimer()" onmouseup="timerplay()"></span>
+                </span>
             </div>
 
             <div>
