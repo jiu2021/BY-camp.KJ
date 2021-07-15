@@ -1993,3 +1993,19 @@ async function asyncFunc() {
 asyncFunc();
 ```
 
+##### 3、Promise方法
+
+对于已经实例化过的 promise 对象可以调用 promise.then() 方法，传递 resolve 和 reject 方法作为回调。
+
+promise.then() 是 promise 最为常用的方法。
+
+```
+promise.then(onFulfilled, onRejected)
+```
+
+promise简化了对error的处理，上面的代码我们也可以这样写：
+
+```
+promise.then(onFulfilled).catch(onRejected)
+```
+
