@@ -4,6 +4,7 @@
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
 }
 
 * {
@@ -12,6 +13,7 @@
 }
 
 a {
+    cursor: pointer;
     text-decoration: none;
     color: black;
 }
@@ -55,6 +57,7 @@ h3 {
     justify-content: space-between;
     position: fixed;
     top: 0px;
+    z-index: 2;
 }
 
 .nav>div {
@@ -92,7 +95,15 @@ h3 {
 }
 
 .nav .all-link a {
-    flex: 1;
+    margin-left: 15px;
+}
+
+.nav .all-link {
+    cursor: pointer;
+}
+
+.nav .all-link:hover {
+    background-color: rgb(218, 218, 218)!important;
 }
 
 .nav .left div:nth-child(4) {
@@ -107,7 +118,7 @@ h3 {
     width: 100px;
     background: rgb(255, 255, 255) url(https://cdn2.jianshu.io/assets/web/download_app-93f9722ab463bb07c6f3c66c8549bfaf.png) no-repeat center;
     line-height: 56px;
-    margin-left: 40px;
+    margin-left: 60px;
     background-size: 100%;
 }
 
@@ -129,7 +140,13 @@ h3 {
     margin: 5px 0 5px 10px;
     background-color: rgb(238, 238, 238);
     border: 1px rgb(238, 238, 238);
-    width: 160px;
+    outline: none;
+    width: 140px;
+    transition: width 1s;
+}
+
+.search input:hover {
+    width: 180px;
 }
 
 .search a {
@@ -355,27 +372,27 @@ ul .content div span:nth-child(1)>a {
 }
 
 ul .content1 div>span:nth-child(1) {
-    background: azure url(images/4.PNG) no-repeat center left;
+    background: rgb(255, 255, 255) url(images/4.PNG) no-repeat center left;
     background-size: 100%;
 }
 
 ul .content2 div>span:nth-child(1) {
-    background: azure url(images/5.PNG) no-repeat center left;
+    background: rgb(255, 255, 255) url(images/5.PNG) no-repeat center left;
     background-size: 100%;
 }
 
 ul .content3 div>span:nth-child(1) {
-    background: azure url(images/6.PNG) no-repeat center left;
+    background: rgb(255, 255, 255) url(images/6.PNG) no-repeat center left;
     background-size: 100%;
 }
 
 ul .content4 div>span:nth-child(1) {
-    background: azure url(images/7.PNG) no-repeat center left;
+    background: rgb(255, 255, 255) url(images/7.PNG) no-repeat center left;
     background-size: 100%;
 }
 
 ul .content5 div>span:nth-child(1) {
-    background: azure url(images/8.PNG) no-repeat center left;
+    background: rgb(255, 255, 255) url(images/8.PNG) no-repeat center left;
     background-size: 100%;
 }
 
@@ -398,6 +415,10 @@ ul .content div span:nth-child(2) span:nth-child(1) {
 ul .content div span:nth-child(2) span:nth-child(2) {
     display: flex;
     flex: 1;
+}
+
+ul .iconfont {
+    transform: rotate(360deg);
 }
 
 
@@ -465,6 +486,14 @@ ul .content div span:nth-child(2) span:nth-child(2) {
     left: 45%;
 }
 
+#slideshow .mySlides img {
+    transition: 0.4s ease;
+}
+
+#slideshow .mySlides img:hover {
+    width: 102%!important;
+}
+
 .dot {
     cursor: pointer;
     height: 13px;
@@ -473,9 +502,10 @@ ul .content div span:nth-child(2) span:nth-child(2) {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
+    transition: 0.5s ease;
 }
 
-.dot:hover {
+.dotchange {
     height: 16px;
     width: 16px;
     background-color: rgb(49, 49, 49);

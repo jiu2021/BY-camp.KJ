@@ -644,6 +644,135 @@ function toArray(arrayLikeObject) {
 }
 ```
 
+#### 7、call()方法
+
+call() 方法是预定义的 JavaScript 方法。
+
+它可以用来调用所有者对象作为参数的方法。
+
+通过 call()，您能够使用属于另一个对象的方法。
+
+本例调用 person 的 fullName 方法，并用于 person1：
+
+**实例：**
+
+```
+var person = {
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+var person1 = {
+    firstName:"Bill",
+    lastName: "Gates",
+}
+var person2 = {
+    firstName:"Steve",
+    lastName: "Jobs",
+}
+person.fullName.call(person1);  // 将返回 "Bill Gates"
+```
+
+**call() 方法可接受参数：**
+
+**实例：**
+
+```
+var person = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + "," + city + "," + country;
+  }
+}
+var person1 = {
+  firstName:"Bill",
+  lastName: "Gates"
+}
+person.fullName.call(person1, "Seattle", "USA");
+```
+
+#### 8、Apply()方法
+
+apply() 方法与 call() 方法非常相似。
+
+不同之处是：
+
+call() 方法分别接受参数。
+
+apply() 方法接受**数组形式**的参数。
+
+如果要使用数组而不是参数列表，则 apply() 方法非常方便。
+
+由于 JavaScript 数组没有 max() 方法，因此您可以应用 Math.max() 方法。
+
+**实例：**
+
+```
+Math.max.apply(null, [1,2,3]); // 也会返回 3
+```
+
+#### 9、闭包
+
+**JavaScript 变量属于本地或全局作用域。**
+
+**全局变量能够通过闭包实现局部（私有）。**
+
+函数能够访问函数*内部*定义的所有变量，但是函数也能访问函数*外部*定义的变量。
+
+在网页中，**全局变量属于 window 对象**。
+
+**全局变量**能够被页面中（以及窗口中）的所有脚本使用和修改。
+
+**局部变量**只能用于其被定义的函数内部。对于其他函数和脚本代码来说它是不可见的。
+
+拥有相同名称的全局变量和局部变量是不同的变量。修改一个，不会改变其他。
+
+不通过关键词 var 创建的变量总是全局的，即使它们在函数中创建。
+
+**变量的生命周期**
+
+全局变量活得和您的应用程序（窗口、网页）一样久。
+
+局部变量活得不长。它们在函数调用时创建，在函数完成后被删除。
+
+**JavaScript 嵌套函数**
+
+所有函数都有权访问全局作用域。
+
+事实上，在 JavaScript 中，所有函数都有权访问它们“上面”的作用域。
+
+JavaScript 支持嵌套函数。嵌套函数可以访问其上的作用域。
+
+**JavaScript 闭包**
+
+记得自调用函数吗？这种函数会做什么呢？
+
+**实例**
+
+```
+var add = (function () {
+    var counter = 0;
+    return function () {return counter += 1;}
+})();
+
+add();
+add();
+add();
+
+// 计数器目前是 3 
+```
+
+变量 add 的赋值是自调用函数的返回值。
+
+这个自调用函数只运行一次。它设置计数器为零（0），并返回函数表达式。
+
+这样 add 成为了函数。最“精彩的”部分是它能够访问父作用域中的计数器。
+
+这被称为 JavaScript *闭包*。它使函数拥有“*私有*”变量成为可能。
+
+计数器被这个匿名函数的作用域保护，并且只能使用 add 函数来修改。
+
+闭包指的是有权访问父作用域的函数，即使在父函数关闭之后。
+
 ### 10、异常处理
 
 [异常处理](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)最常见的方式像下面这样：
@@ -910,8 +1039,12 @@ var jane = {
     describe: function () {
         'use strict';
         return 'Person named '+this.name;
-    }
-};
+    }//函数形式访问：jane.decribe()
+    
+    get describe() {
+    'use strict';
+        return 'Person named '+this.name;
+};//属性形式访问：Jane.desribe
 ```
 
 上面的对象有两个属性：name 和 describe。你能读（“get”）和 写（“set”）属性：
@@ -959,6 +1092,20 @@ true
 > 'newProperty' in jane
 false
 ```
+
+**for...in 循环**
+
+JavaScript for...in 语句遍历对象的属性。
+
+语法：
+
+```
+for (variable in object) {
+    要执行的代码
+}
+```
+
+for...in 循环中的代码块会为每个属性执行一次。
 
 #### 2、任意键属性
 
@@ -1298,8 +1445,12 @@ Person 就是一个构造函数，我们使用 new 创建了一个实例对象 p
 
 **prototype**
 
-每个函数都有一个 prototype 属性
+每个函数都有一个 prototype 属性。
  每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。
+
+我们**无法直接给构造函数添加新属性或者新方法**，但我们可以通过构造函数的**prototype**属性给其添加新属性。
+
+同时切记只能修改自己的原型，不能修改JS标准对象的原型。
 
 **proto**
 
@@ -1383,6 +1534,11 @@ document.getElementById(*id*).*attribute=新属性值*
 如需改变 HTML 元素的样式，请使用这个语法：
 
 document.getElementById(*id*).style.*property*=*新样式*
+
+动态添加并删除类名：
+添加：document.getElementById("id").classList.add("className")；
+
+删除：document.getElementById("id").classList.remove("className")；
 
 #### 3、DOM 事件
 
@@ -1778,6 +1934,7 @@ function f1() {
   setTimeout(function () {
     // ...
     jQuery.publish('done');
+    
   }, 1000);
 ```
 
@@ -1790,28 +1947,49 @@ jQuery.unsubscribe('done', f2);
 
 这种方法的性质与“事件监听”类似，但是明显优于后者。因为可以通过查看“消息中心”，了解存在多少信号、
 
-### 21、DOM 对象
+#### 5、Promise
 
-**HTML DOM 节点**
+##### 1、Promise的使用
 
-在 HTML DOM (Document Object Model) 中 , 每一个元素都是 **节点**:
+Promise 构造函数只有一个参数，是一个函数，这个函数在构造之后会直接被异步运行，所以我们称之为起始函数。起始函数包含两个参数 resolve 和 reject。
 
-- 文档是一个文档节点。
-- 所有的HTML元素都是元素节点。
-- 所有 HTML 属性都是属性节点。
-- 文本插入到 HTML 元素是文本节点。
-- 注释是注释节点。
+resolve() 中可以放置一个参数用于向下一个 then 传递一个值，then 中的函数也可以返回一个值传递给 then。但是，如果 then 中返回的是一个 Promise 对象，那么下一个 then 将相当于对这个返回的 Promise 进行操作。
 
-#### 1、 DOM Document对象
+reject() 参数中一般会传递一个异常给之后的 catch 函数用于处理异常。
 
-当浏览器载入 HTML 文档, 它就会成为 **Document 对象**。
+但是请注意以下两点：
 
-Document 对象是 HTML 文档的根节点。
+- resolve 和 reject 的作用域只有起始函数，不包括 then 以及其他序列；
+- resolve 和 reject 并不能够使起始函数停止运行，别忘了 return。
 
-Document 对象使我们可以从脚本中对 HTML 页面中的所有元素进行访问。
+##### 2、异步函数async function
 
-**提示：**Document 对象是 Window 对象的一部分，可通过 window.document 属性对其进行访问。
+```
+async function asyncFunc() {    
+await print(1000, "First");    
+await print(4000, "Second");    
+await print(3000, "Third"); 
+} 
+asyncFunc();
+```
 
-**Document 对象属性和方法**
+异步函数 async function 中可以使用 await 指令，await 指令后必须跟着一个 Promise，异步函数会在这个 Promise 运行中暂停，直到其运行结束再继续运行。
 
-HTML文档中可以使用以下属性和方法:
+异步函数实际上原理与 Promise 原生 API 的机制是一模一样的，只不过更便于程序员阅读。
+
+处理异常的机制将用 try-catch 块实现：
+
+```
+async function asyncFunc() {
+    try {
+        await new Promise(function (resolve, reject) {
+            throw "Some error"; // 或者 reject("Some error")
+        });
+    } catch (err) {
+        console.log(err);
+        // 会输出 Some error
+    }
+}
+asyncFunc();
+```
+

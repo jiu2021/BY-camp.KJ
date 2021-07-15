@@ -848,7 +848,9 @@ span:ntn-child(2){
 | wait      | 此光标指示程序正忙（通常是一只表或沙漏）。                   |
 | help      | 此光标指示可用的帮助（通常是一个问号或一个气球）。           |
 
-### 17、过渡效果（transition）
+### 17、CSS3动态样式
+
+#### 1、过渡
 
 transition: *property duration timing-function delay*;
 
@@ -857,4 +859,31 @@ transition: *property duration timing-function delay*;
 | *[transition-duration](https://www.runoob.com/cssref/css3-pr-transition-duration.html)* | transition效果需要指定多少秒或毫秒才能完成 |
 | *[transition-timing-function](https://www.runoob.com/cssref/css3-pr-transition-timing-function.html)* | 指定transition效果的转速曲线               |
 | *[transition-delay](https://www.runoob.com/cssref/css3-pr-transition-delay.html)* | 定义transition效果开始的时候               |
+
+#### 2、动画
+
+当在 **@keyframes** 创建动画，把它绑定到一个选择器，否则动画不会有任何效果。
+
+指定至少这两个CSS3的动画属性绑定向一个选择器：
+
+- 规定动画的名称
+- 规定动画的时长
+
+**实例：**
+
+```
+div
+{
+	width:100px;
+	height:100px;
+	background:red;
+	animation:myfirst 5s;
+}
+
+@keyframes myfirst
+{
+	from {background:red;}
+	to {background:yellow;}
+}
+```
 
