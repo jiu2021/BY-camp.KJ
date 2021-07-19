@@ -39,7 +39,7 @@ button:nth-child(1) {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.inputer span {
+.inputer>span {
     width: 50px;
     height: 65px;
     padding: 0%;
@@ -81,9 +81,7 @@ ul {
 
 ul li {
     display: flex;
-    height: 60px;
     width: 100%;
-    line-height: 60px;
     font-size: 24px;
     border-top: 2px solid whitesmoke;
     position: relative;
@@ -115,7 +113,7 @@ ul li>fork {
     width: 30px;
     height: 30px;
     right: 0;
-    margin-top: 15px;
+    bottom: 0;
 }
 
 ul #listTail {
@@ -141,5 +139,20 @@ ul #listTail {
 }
 
 ul li:nth-child(n+2):hover {
-    background: url(images/红叉.PNG) no-repeat right center;
+    background: url(images/红叉.PNG) no-repeat right bottom;
+}
+
+#itemslist .text {
+    width: 470px;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 15px 0;
+    cursor: default;
+}
+
+#edit {
+    border: rgb(36, 36, 36) solid 1px;
+    height: 62.4px;
 }

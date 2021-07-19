@@ -5,7 +5,7 @@ displaylistTail(); //实时监测有无事件，若无则收起表尾
 //捕获输入事件，创建事件列表
 function getItems() {
     //如果按下enter键且输入框不为空串
-    if (event.keyCode == 13 && document.getElementById("input").value !== "") { //13→对应回车事件
+    if (event.keyCode == 13 && document.getElementById("input").value.trim() != "") { //13→对应回车事件
         counter++;
         var newli = document.createElement("li");
         document.getElementById("itemslist").appendChild(newli);
@@ -14,14 +14,24 @@ function getItems() {
         newli.appendChild(newspan);
         newli.setAttribute("class", "Active");
 
-        var newlabel = document.createElement("label");
-        newspan.appendChild(newlabel);
-        newlabel.appendChild(document.createTextNode("○"));
+        if (buttonlist[2].classList.contains("choose")) {
+            newli.style.display = "none";
+        } //如果处于展示Completed状态下，则不展示新输入的
+
+        var newspan1 = document.createElement("span");
+        newli.appendChild(newspan1);
+        var spanlist = document.getElementsByTagName("span");
+        spanlist[spanlist.length - 1].classList.add("text");
+        var textlist = document.getElementsByClassName("text");
 
         var newItem = document.getElementById("input").value;
         var node = document.createTextNode(newItem);
-        newli.appendChild(node);
+        textlist[textlist.length - 1].appendChild(node);
         document.getElementById("input").value = "";
+
+        var newlabel = document.createElement("label");
+        newspan.appendChild(newlabel);
+        newlabel.appendChild(document.createTextNode("○"));
 
         var newfork = document.createElement("fork");
         newli.appendChild(newfork);
@@ -30,6 +40,7 @@ function getItems() {
         displaycounter();
         setchoose();
         setfork();
+        setedit();
     }
 }
 //创建勾选按钮
@@ -41,10 +52,16 @@ function setchoose() {
             if (allList[i].classList.contains("Active")) {
                 allList[i].classList.remove("Active");
                 allList[i].classList.add("Completed");
+                if (buttonlist[1].classList.contains("choose")) {
+                    allList[i].style.display = "none";
+                } //如果处于展示Active状态下，则不显示新Completed的
                 counter--;
             } else if (allList[i].classList.contains("Completed")) {
                 allList[i].classList.remove("Completed");
                 allList[i].classList.add("Active");
+                if (buttonlist[2].classList.contains("choose")) {
+                    allList[i].style.display = "none";
+                } //如果处于展示Completed状态下，则不显示新Active的
                 counter++;
             }
             displaycounter();
@@ -52,7 +69,48 @@ function setchoose() {
         }
     }
 }
+//实现多次编辑功能 
+function setedit() {
+    var textlist = document.getElementsByClassName("text");
+    var allList = document.getElementsByTagName("li");
+    for (let now = textlist.length - 1; now >= 0; now--) {
+        textlist[now].ondblclick = function() {
+            //连击开启重新编辑模式
+            var newinput = document.createElement("input");
+            newinput.setAttribute("value", "");
+            newinput.setAttribute("id", "edit");
+            var parent = document.getElementById("itemslist");
+            parent.insertBefore(newinput, allList[now + 1]);
 
+            newinput.value = textlist[now].innerText;
+            allList[now + 1].style.display = "none";
+            //将编辑内容重新写入
+            newinput.onkeydown = function() {
+                var parent = document.getElementById("itemslist");
+                if (event.keyCode == 13) {
+                    //新内容为空，则删除事件
+                    if (newinput.value.trim() == "") {
+                        if (allList[now + 1].classList.contains("Active")) {
+                            counter--;
+                            displaycounter();
+                        }
+                        parent.removeChild(allList[now + 1]);
+                        setchoose();
+                        setfork();
+                        setedit();
+                        parent.removeChild(newinput);
+                    }
+                    //新内容不为空，则写入
+                    else {
+                        textlist[now].innerText = newinput.value.trim();
+                        allList[now + 1].style.display = "flex";
+                        parent.removeChild(newinput);
+                    }
+                }
+            }
+        }
+    }
+}
 //创建红叉按钮
 function setfork() {
     var allfork = document.getElementsByTagName("fork");
@@ -67,6 +125,7 @@ function setfork() {
             displaycounter();
             setchoose();
             setfork();
+            setedit();
         }
     }
 }
@@ -85,26 +144,34 @@ function chooseAll() {
         for (let i = 1; i < allList.length; i++) {
             allList[i].classList.remove("Active");
             allList[i].classList.add("Completed");
-            counter = 0;
-            displaycounter();
-            displayClearcompleted()
-            recordchooseAll = 0;
         }
+        if (buttonlist[1].classList.contains("choose")) {
+            displayActive();
+        } //如果处于展示Active状态下
+        if (buttonlist[2].classList.contains("choose")) {
+            displayCompleted();
+        } //如果处于展示Completed状态下
+        counter = 0;
+        displaycounter();
+        displayClearcompleted()
+        recordchooseAll = 0;
     } else {
         allLabel[0].classList.remove("no");
         allLabel[0].classList.add("yes");
         for (let i = 1; i < allList.length; i++) {
             allList[i].classList.remove("Completed");
             allList[i].classList.add("Active");
-            counter = allList.length - 1;
-            displaycounter();
-            displayClearcompleted()
-            recordchooseAll = 1;
         }
-    }
-    for (let i = 0; i < buttonlist.length; i++) {
-        if (buttonlist[i].classList.contains("choose"))
-            buttonlist[i].classList.remove("choose");
+        if (buttonlist[2].classList.contains("choose")) {
+            displayCompleted();
+        } //如果处于展示Completed状态下
+        if (buttonlist[1].classList.contains("choose")) {
+            displayActive();
+        } //如果处于展示Active状态下
+        counter = allList.length - 1;
+        displaycounter();
+        displayClearcompleted()
+        recordchooseAll = 1;
     }
 }
 //All按钮
@@ -171,6 +238,7 @@ function Clearcompleted() {
     }
     setchoose();
     setfork();
+    setedit();
 }
 //Clear completed按钮状态
 function displayClearcompleted() {
@@ -187,7 +255,7 @@ function displayClearcompleted() {
         recordClearcompleted = 0;
     }
 }
-//
+
 function displaylistTail() {
     setInterval(function() {
         var allList = document.getElementsByTagName("li");
@@ -197,5 +265,4 @@ function displaylistTail() {
             document.getElementById("listTail").style.display = "flex";
         }
     }, 100);
-
 }
