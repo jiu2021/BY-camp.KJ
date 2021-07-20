@@ -1,0 +1,52 @@
+#menu {
+    display: flex;
+    position: absolute;
+    flex-flow: column;
+    width: 250px;
+    height: 200px;
+    left: 40%;
+    top: 200px;
+    background-color: transparent;
+    border: 2px black solid;
+    border-radius: 5px;
+    box-shadow: whitesmoke;
+}
+
+#menu span {
+    cursor: pointer;
+    height: 50px;
+    width: 100px;
+    margin: 25px auto;
+    font-size: 30px;
+    line-height: 50px;
+    text-align: center;
+    background-color: yellow;
+    border-radius: 2px;
+    border: 1px black solid;
+}
+
+#duck {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    position: absolute;
+    height: 80px;
+    width: 100px;
+    background: url(小黄鸭.png) center no-repeat;
+    background-size: 75%;
+    top: 100px;
+    left: 45%;
+    transition: 0.5s ease;
+}
+
+#text {
+    width: 200%;
+    height: 20px;
+    text-align: center;
+    color: brown;
+    border-radius: 5px;
+}
+
+h1 {
+    padding-left: 43%;
+}

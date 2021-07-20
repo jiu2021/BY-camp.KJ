@@ -223,3 +223,124 @@ readable.pipe(writable, { end: false });
 
 ### 3、http
 
+**HTTP服务器**
+
+Node.js自带`http`模块，操作`http`模块提供的`request`和`response`对象，来开发HTTP服务器程序。
+
+`request`对象封装了HTTP请求，我们调用`request`对象的属性和方法就可以拿到所有HTTP请求的信息；
+
+`response`对象封装了HTTP响应，我们操作`response`对象的方法，就可以把HTTP响应返回给浏览器。
+
+
+
+用Node.js实现一个HTTP服务器程序非常简单。我们来实现一个最简单的Web程序`hello.js`，它对于所有请求，都返回`Hello world!`：
+
+```
+'use strict';
+// 导入http模块:
+var http = require('http');
+
+// 创建http server，并传入回调函数:
+var server = http.createServer(function (request, response) {
+    // 回调函数接收request和response对象,
+    // 获得HTTP请求的method和url:
+    console.log(request.method + ': ' + request.url);
+    // 将HTTP响应200写入response, 同时设置Content-Type: text/html:
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    // 将HTTP响应的HTML内容写入response:
+    response.end('<h1>Hello world!</h1>');
+});
+
+// 让服务器监听8080端口:
+server.listen(8080);
+
+console.log('Server is running at http://127.0.0.1:8080/');
+```
+
+在命令提示符下运行该程序，可以看到以下输出：
+
+```
+$ node hello.js 
+Server is running at http://127.0.0.1:8080/
+```
+
+不要关闭命令提示符，直接打开浏览器输入`http://localhost:8080`，即可看到服务器响应的内容。
+
+**文件服务器**
+
+实现一个文件服务器`file_server.js`：
+
+```
+'use strict';
+
+var
+    fs = require('fs'),
+    url = require('url'),
+    path = require('path'),
+    http = require('http');
+
+// 从命令行参数获取root目录，默认是当前目录:
+var root = path.resolve(process.argv[2] || '.');
+
+console.log('Static root dir: ' + root);
+
+// 创建服务器:
+var server = http.createServer(function (request, response) {
+    // 获得URL的path，类似 '/css/bootstrap.css':
+    var pathname = url.parse(request.url).pathname;
+    // 获得对应的本地文件路径，类似 '/srv/www/css/bootstrap.css':
+    var filepath = path.join(root, pathname);
+    // 获取文件状态:
+    fs.stat(filepath, function (err, stats) {
+        if (!err && stats.isFile()) {
+            // 没有出错并且文件存在:
+            console.log('200 ' + request.url);
+            // 发送200响应:
+            response.writeHead(200);
+            // 将文件流导向response:
+            fs.createReadStream(filepath).pipe(response);
+        } else {
+            // 出错了或者文件不存在:
+            console.log('404 ' + request.url);
+            // 发送404响应:
+            response.writeHead(404);
+            response.end('404 Not Found');
+        }
+    });
+});
+
+server.listen(8080);
+
+console.log('Server is running at http://127.0.0.1:8080/');
+```
+
+## 3、框架（koa2）
+
+引入koa：
+
+```
+const Koa = require('koa');
+
+// 创建一个Koa对象表示web app本身:
+const app = new Koa();
+```
+
+核心代码:
+
+```
+app.use(async (ctx, next) => {
+    await next();
+    ctx.response.type = 'text/html';
+    ctx.response.body = '<h1>Hello, koa2!</h1>';
+});
+```
+
+每收到一个http请求，koa就会调用通过`app.use()`注册的async函数，并传入`ctx`和`next`参数。
+
+koa把很多async函数组成一个处理链，每个async函数都可以做一些自己的事情，然后用`await next()`来调用下一个async函数。我们把每个async函数称为**middleware**，这些middleware可以组合起来，完成很多有用的功能。
+
+`ctx`对象有一些简写的方法，例如`ctx.url`相当于`ctx.request.url`，`ctx.type`相当于`ctx.response.type`。
+
+**koa-router**
+
+为了处理URL，我们需要引入`koa-router`这个middleware，让它负责处理URL映射。
