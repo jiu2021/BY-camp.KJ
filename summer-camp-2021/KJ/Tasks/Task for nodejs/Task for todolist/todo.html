@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To do list</title>
+    <link rel="stylesheet" href="todo.css" />
+    <script src="todo.js"></script>
+</head>
+
+<body>
+    <div>
+        <div class="header">Todos</div>
+        <div class="inputer">
+            <span><label onclick="chooseAll()" calss="yes">﹀</label></span>
+            <input id="input" type="text" placeholder="What needs to be done?" onkeydown="getItems()" />
+            <ul id="itemslist">
+                <li id="listTail" style="display: none">
+                    <span id="forCounter"></span>
+                    <button onclick="displayAll()">All</button>
+                    <button onclick="displayActive()">Active</button>
+                    <button onclick="displayCompleted()">Completed</button>
+                    <button onclick="Clearcompleted()" id="clear"></button>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

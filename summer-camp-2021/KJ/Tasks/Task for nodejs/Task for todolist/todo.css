@@ -1,0 +1,158 @@
+body {
+    background-color: whitesmoke
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    margin: 16px 10px;
+}
+
+button:nth-child(1) {
+    margin-left: 60px;
+}
+
+.choose {
+    border: black 1px solid;
+    border-radius: 2px;
+}
+
+.header {
+    width: 280px;
+    height: 120px;
+    margin: 20px auto;
+    line-height: 120px;
+    font-size: 90px;
+    color: rgb(255, 225, 185);
+}
+
+.inputer {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 550px;
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto;
+    /*box-shadow: 10px 10px 10px #9e9e9e;*/
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2);
+}
+
+.inputer>span {
+    width: 50px;
+    height: 65px;
+    padding: 0%;
+}
+
+.inputer>span>label {
+    font-size: 22px;
+    color: #e6e6e6;
+    line-height: 70px;
+    margin-left: 15px;
+    font-weight: 1000;
+}
+
+.no {
+    color: black!important;
+}
+
+.inputer input {
+    border: none;
+    outline: none;
+    width: 500px;
+    height: 65px;
+    font-size: 24px;
+    padding: 0%;
+}
+
+::-webkit-input-placeholder {
+    color: rgb(224, 224, 224);
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-flow: column wrap;
+    padding: 0px;
+    margin: 0;
+    width: 100%;
+}
+
+ul li {
+    display: flex;
+    width: 100%;
+    font-size: 24px;
+    border-top: 2px solid whitesmoke;
+    position: relative;
+}
+
+ul .Completed {
+    color: rgb(224, 224, 224);
+    /*text-decoration: line-through;*/
+}
+
+ul .Completed span label {
+    background: url(images/tick.png) no-repeat center;
+    background-size: 100%;
+    text-decoration-line: none;
+}
+
+ul li span label {
+    font-size: 35px;
+    font-weight: 100;
+    color: white;
+    margin-left: 10px;
+    background: url(images/circle.png) no-repeat center;
+    background-size: 100%;
+    line-height: 60px;
+}
+
+ul li>fork {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 0;
+    bottom: 0;
+}
+
+ul #listTail {
+    height: 50px;
+    font-size: 14px;
+    line-height: 50px;
+    order: 100;
+}
+
+#forCounter {
+    width: 80px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+#clear {
+    margin-left: 120px;
+    border: none;
+}
+
+#clear:hover {
+    text-decoration: underline;
+}
+
+ul li:nth-child(n+2):hover {
+    background: url(images/fork.png) no-repeat right bottom;
+}
+
+#itemslist .text {
+    width: 470px;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 15px 0;
+    cursor: default;
+}
+
+#edit {
+    border: rgb(36, 36, 36) solid 1px;
+    height: 62.4px;
+}
