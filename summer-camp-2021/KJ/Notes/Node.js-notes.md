@@ -475,6 +475,23 @@ app.use(bodyParser());
 //由于middleware的顺序很重要，这个koa-bodyparser必须在router之前被注册到app对象上。
 ```
 
+**处理静态文件**
+
+```
+const Koa = require("koa");
+const statics = require("koa-static");//引入新模块
+const path = require("path");
+const app = new Koa();
+
+const staticPath = './目录名';
+app.use(statics(path.join(__dirname, staticPath)))
+//访问http://127.0.0.1:监听端口/目录下的文件名
+```
+
+
+
+
+
 ## 4、模板引擎（Nunjucks）
 
 使用一个模板引擎是非常简单的，因为本质上我们只需要构造这样一个函数：
