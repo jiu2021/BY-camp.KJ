@@ -18,7 +18,7 @@
 function name1(){};
 function name2(){};
 
-modules.exports = {
+module.exports = {
 property1:name1,
 property2:name2
 }//暴露接口，此处可看成含有两个函数的对象
