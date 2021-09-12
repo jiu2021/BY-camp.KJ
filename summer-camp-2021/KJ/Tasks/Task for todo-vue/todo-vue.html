@@ -30,14 +30,15 @@
                 <img src="image/圆.PNG" v-show="item.status" />
                 <img src="image/对钩.PNG" v-show="!item.status" />
               </span>
-        <span class="text" v-bind:class="{completed:!item.status}">
+        <span class="text" v-bind:class="{completed:!item.status}" @dblclick="displayUpdate(index)">
                 {{item.name}}
               </span>
         <span class="fork" @click="deleteItem(index)"></span>
+        <input class="update" type="text" v-model="message" @keyup.enter="getUpdate(index)" style="display: none" />
         </li>
         </ul>
       </div>
-      <div id="listTail">
+      <div id="listTail" v-show="itemsList.length != 0">
         <span id="counter">{{counter}}items left</span>
         <span class="displayStatus" @click="displayStatus = 'All'" v-bind:class="{getBorder: displayStatus == 'All'}">
             All

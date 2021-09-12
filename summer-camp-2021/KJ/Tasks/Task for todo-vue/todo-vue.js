@@ -124,7 +124,24 @@ var app = new Vue({
         //更新local storage
         localStorage.setItem("items", JSON.stringify(this.itemsList));
       }
+    },
 
+    getUpdate: function(index) {
+      if (this.message.trim() != "") {
+        this.itemsList[index].name = this.message;
+        this.message = "";
+      }
+      //更新local storage
+      localStorage.setItem("items", JSON.stringify(this.itemsList));
+      //收起修改框
+      var list = document.getElementsByClassName("update");
+      list[index].style.display = "none";
+    },
+
+    displayUpdate: function(index) {
+      //展示输入框
+      var list = document.getElementsByClassName("update");
+      list[index].style.display = "";
     }
   }
 })

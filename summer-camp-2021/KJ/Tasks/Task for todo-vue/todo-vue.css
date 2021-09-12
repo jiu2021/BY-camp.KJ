@@ -145,3 +145,10 @@ h1 {
   border: black 1px solid;
   border-radius: 2px;
 }
+
+.update {
+  width: 200px;
+  height: 55px;
+  position: absolute;
+  right: 0;
+}
