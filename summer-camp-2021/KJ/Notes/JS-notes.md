@@ -124,6 +124,8 @@ JavaScript定义了不同值之间的区别：
 - [正则表达式对象](http://yanhaijing.com/basejs/#sect_regexp)（类型是 RegExp）能通过正则表达式字面量创建。
 
   /^a+b+$/
+  
+- function
 
 对象的特征：
 
@@ -289,7 +291,7 @@ typeof «value»
   true
 > [] instanceof Array
   true
-> [] instanceof Object  // 数字是对象的子类型
+> [] instanceof Object  // 数组是对象的子类型
   true
 ```
 
@@ -297,10 +299,8 @@ typeof «value»
 
 布尔类型原始值包括true和false。下面的操作符产生布尔值：
 
-- | 二元逻辑运算符：&&（与）， |      | （或） |
-  | -------------------------- | ---- | ------ |
-  |                            |      |        |
-
+- 二元逻辑运算符
+  
 - 前缀逻辑运算符：!（非）
 
 - 等值运算符：=== !== == !=
@@ -777,6 +777,12 @@ add();
 
 闭包指的是有权访问父作用域的函数，即使在父函数关闭之后。
 
+#### 10、回调函数
+
+**定义：**由自己定义的，没有调用自己执行的函数。
+
+**常见种类：**dom事件回调函数，定时器回调函数，ajax请求回调函数，生命周期回调函数。
+
 ### 10、异常处理
 
 [异常处理](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)最常见的方式像下面这样：
@@ -991,7 +997,7 @@ function createIncrementor(start) {
 
 闭包是一个函数加上和其作用域链的链接。因此，createIncrementor() 返回的是一个闭包。
 
-#### 4、IIFE：模拟块级作用域
+#### 4、IIFE：模拟块级作用域（匿名函数自调用）
 
 有时你想模拟一个块，例如你想将变量从全局作用域隔离。完成这个工作的模式叫做 IIFE(立即执行函数表达式(Immediately Invoked Function Expression))：
 
@@ -1001,7 +1007,7 @@ function createIncrementor(start) {
 }());  // 块结束
 ```
 
-上面你会看到函数表达式被立即执行。外面的括号用来阻止它被解析成函数声明；只有函数表达式能被立即调用。函数体产生一个新的作用域并使 tmp 变为局部变量。
+上面你会看到函数表达式被立即执行。外面的括号用来阻止它被解析成函数声明；只有函数表达式能被立即调用。函数体产生一个新的作用域并使 tmp 变为**局部变量**。
 
 #### 5、闭包实现变量共享
 
@@ -1345,6 +1351,14 @@ false
 'xbc'
 > arr.join()
 'x,b,c'
+
+>arr.sort(function(a,b) {return a - b})//升序排列
+
+>arr.split("",num)//按照引号中的内容进行分割原数组并修改，num指定最大分割个数
+
+>arr.filter((item)=>{
+ return arr.id = id;
+})//返回符合条件的新数组
 ```
 
 #### 3、遍历数组
@@ -2077,4 +2091,26 @@ s; // Set {1, 2, 3}
 s.delete(3);
 s; // Set {1, 2}
 ```
+
+### this
+
+- 在方法中，this 表示该方法所属的对象。
+
+- 如果单独使用，this 表示全局对象。
+
+- 在函数中，this 表示全局对象。
+
+- 在函数中，在严格模式下，this 是未定义的(undefined)。
+
+- 在 HTML 事件句柄中，this 指向了接收事件的 HTML 元素。
+
+- 类似 call() 和 apply() 方法可以将 this 引用到任何对象。
+
+  简单理解，this指向的是该this所在的最里层的object对象。
+
+  1、函数不是object对象，所以没有写在object对象里的函数调用this会指向window
+
+  2、构造函数是object对象，所以在构造函数中调用this会指向该构造函数
+
+  3、html元素是object元素，所以在html元素中调用this会指向该元素
 
